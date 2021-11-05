@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Calabonga.Calculator.Providers;
+using Calabonga.Calculator.Services;
 
 namespace Calabonga.Calculator
 {
@@ -6,103 +7,39 @@ namespace Calabonga.Calculator
     {
         static void Main(string[] args)
         {
+            // Creating instances
+            var outputService = new OutputService();
+            var inputStringService = new InputStringService();
+            var inputService = new InputFloatProvider(outputService, inputStringService);
+            var parseOperandService = new InputOperandProvider(outputService, inputStringService);
+            var calculateService = new CalculatorService(outputService);
+
             // Welcome
-            Console.WriteLine("Calculator v1.0.0");
+            outputService.Print("Calculator v1.0.0");
 
             // Getting first number
-            Console.WriteLine("Enter first number (float)");
-            var number1 = GetNumber();
-            
+            outputService.Print("Enter first number (float)");
+            var number1 = inputService.GetNumber();
+
             // Getting second number
-            Console.WriteLine("Enter second number (float)");
-            var number2 = GetNumber();
-            
+            outputService.Print("Enter second number (float)");
+            var number2 = inputService.GetNumber();
+
             // Getting Operand
-            var operand = GetOperand();
+            var operand = parseOperandService.GetOperand();
             if (operand == OperandType.None)
             {
-                Console.WriteLine("Wrong operand. Good bye!");
+                outputService.Print("Wrong operand. Good bye!");
                 return;
             }
 
             // Calculation 
-            var result = Calculate(number1, number2, operand);
-
-            // Showing result
-            Console.WriteLine(result);
-        }
-
-        /// <summary>
-        /// Returns calculation result
-        /// </summary>
-        /// <param name="number1"></param>
-        /// <param name="number2"></param>
-        /// <param name="operand"></param>
-        /// <returns></returns>
-        private static float? Calculate(float number1, float number2, OperandType operand)
-        {
-
-            switch (operand)
+            var result = calculateService.Compute(number1, number2, operand);
+            if (result is not null)
             {
-                case OperandType.Addition:
-                    return number1 + number2;
-                case OperandType.Subtraction:
-                    return number1 - number2;
-                case OperandType.Multiplication:
-                    return number1 * number2;
-
-                case OperandType.Division:
-                    if (number2 == 0)
-                    {
-                        Console.WriteLine("Divide by zero. Error.");
-                        return null;
-                    }
-                    return number1 / number2;
-
+                outputService.Print(result.Value.ToString("F"));
             }
-            return null;
         }
 
-        /// <summary>
-        /// Returns OperandType
-        /// </summary>
-        /// <returns></returns>
-        private static OperandType GetOperand()
-        {
-            Console.WriteLine("Enter operand + - * /");
-            var operandString = Console.ReadLine();
-
-            return operandString switch
-            {
-                "+" => OperandType.Addition,
-                "-" => OperandType.Subtraction,
-                "*" => OperandType.Multiplication,
-                "/" => OperandType.Division,
-                _ => OperandType.None,
-            };
-
-        }
-
-        /// <summary>
-        /// Returns parsed number
-        /// </summary>
-        /// <returns></returns>
-        private static float GetNumber()
-        {
-            float number;
-            bool isInputValid;
-            do
-            {
-                var numberString = Console.ReadLine();
-                var numberParsed = float.TryParse(numberString, out number);
-                isInputValid = numberParsed;
-                if (!numberParsed)
-                {
-                    Console.WriteLine("Wrong number, please try again enter a valid float number:");
-                }
-            } while (!isInputValid);
-
-            return number;
-        }
     }
 }
