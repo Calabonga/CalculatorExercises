@@ -12,7 +12,7 @@ namespace Calabonga.Calculator
             var inputStringService = new InputStringService();
             var inputService = new InputFloatProvider(outputService, inputStringService);
             var parseOperandService = new InputOperandProvider(outputService, inputStringService);
-            var calculateService = new CalculatorService(outputService);
+            var calculateService = new CalculatorProvider(outputService);
 
             // Welcome
             outputService.Print("Calculator v1.0.0");
