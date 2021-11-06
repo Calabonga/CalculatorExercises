@@ -1,12 +1,12 @@
-﻿using Calabonga.Calculator.Services;
+﻿using Calabonga.Calculator.Services.Base;
 
 namespace Calabonga.Calculator.Providers
 {
     public class CalculatorProvider
     {
-        private readonly OutputService _outputService;
+        private readonly IOutputService _outputService;
 
-        public CalculatorProvider(OutputService outputService)
+        public CalculatorProvider(IOutputService outputService)
         {
             _outputService = outputService;
         }

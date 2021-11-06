@@ -1,13 +1,14 @@
 ﻿using Calabonga.Calculator.Services;
+using Calabonga.Calculator.Services.Base;
 
 namespace Calabonga.Calculator.Providers
 {
     public class InputFloatProvider
     {
-        private readonly OutputService _outputService;
+        private readonly IOutputService _outputService;
         private readonly InputStringService _inputStringService;
 
-        public InputFloatProvider(OutputService outputService, InputStringService inputStringService)
+        public InputFloatProvider(IOutputService outputService, InputStringService inputStringService)
         {
             _outputService = outputService;
             _inputStringService = inputStringService;

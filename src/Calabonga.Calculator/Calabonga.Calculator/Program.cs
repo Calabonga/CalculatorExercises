@@ -1,5 +1,8 @@
-﻿using Calabonga.Calculator.Providers;
+﻿using System;
+using System.Linq;
+using Calabonga.Calculator.Providers;
 using Calabonga.Calculator.Services;
+using Calabonga.Calculator.Services.Base;
 
 namespace Calabonga.Calculator
 {
@@ -7,15 +10,31 @@ namespace Calabonga.Calculator
     {
         static void Main(string[] args)
         {
+            if (!args.Any())
+            {
+                throw new ArgumentNullException();
+            }
+
+            IOutputService outputService;
+
+            var values = args[0].Split('=');
+            if (values[1] == "console")
+            {
+                outputService = new ConsoleOutputService();
+            }
+            else
+            {
+                outputService = new MessageBoxOutputService();
+            }
+
             // Creating instances
-            var outputService = new OutputService();
             var inputStringService = new InputStringService();
             var inputService = new InputFloatProvider(outputService, inputStringService);
             var parseOperandService = new InputOperandProvider(outputService, inputStringService);
             var calculateService = new CalculatorProvider(outputService);
 
             // Welcome
-            outputService.Print("Calculator v1.0.0");
+            outputService.Print("Calculator v3.0.0");
 
             // Getting first number
             outputService.Print("Enter first number (float)");

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Calabonga.Calculator": {
+      "commandName": "Project",
+      "commandLineArgs": "--output=console"
+    }
+  }
+}
