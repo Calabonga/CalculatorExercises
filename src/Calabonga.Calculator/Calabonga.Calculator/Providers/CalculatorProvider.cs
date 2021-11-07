@@ -1,4 +1,5 @@
-﻿using Calabonga.Calculator.Services.Base;
+﻿using Calabonga.Calculator.Factories;
+using Calabonga.Calculator.Services.Base;
 
 namespace Calabonga.Calculator.Providers
 {
@@ -6,9 +7,9 @@ namespace Calabonga.Calculator.Providers
     {
         private readonly IOutputService _outputService;
 
-        public CalculatorProvider(IOutputService outputService)
+        public CalculatorProvider(OutputSelectionFactory outputSelectionFactory)
         {
-            _outputService = outputService;
+            _outputService = outputSelectionFactory.GetOutputService();
         }
 
         /// <summary>

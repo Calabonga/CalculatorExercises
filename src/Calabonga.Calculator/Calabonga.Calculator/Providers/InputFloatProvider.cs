@@ -1,4 +1,5 @@
-﻿using Calabonga.Calculator.Services;
+﻿using Calabonga.Calculator.Factories;
+using Calabonga.Calculator.Services;
 using Calabonga.Calculator.Services.Base;
 
 namespace Calabonga.Calculator.Providers
@@ -8,9 +9,9 @@ namespace Calabonga.Calculator.Providers
         private readonly IOutputService _outputService;
         private readonly InputStringService _inputStringService;
 
-        public InputFloatProvider(IOutputService outputService, InputStringService inputStringService)
+        public InputFloatProvider(OutputSelectionFactory outputSelectionFactory, InputStringService inputStringService)
         {
-            _outputService = outputService;
+            _outputService = outputSelectionFactory.GetOutputService();
             _inputStringService = inputStringService;
         }
 

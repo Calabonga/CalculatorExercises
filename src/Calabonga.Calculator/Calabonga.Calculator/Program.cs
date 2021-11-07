@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Calabonga.Calculator.Factories;
 using Calabonga.Calculator.Providers;
 using Calabonga.Calculator.Services;
 using Calabonga.Calculator.Services.Base;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Calabonga.Calculator
 {
@@ -10,42 +13,40 @@ namespace Calabonga.Calculator
     {
         static void Main(string[] args)
         {
-            if (!args.Any())
-            {
-                throw new ArgumentNullException();
-            }
+            // Registering objects
+            var services = new ServiceCollection();
+            services.AddTransient<IOutputService, ConsoleOutputService>();
+            services.AddTransient<IOutputService, MessageBoxOutputService>();
+            services.AddTransient<InputStringService>();
+            services.AddTransient<InputFloatProvider>();
+            services.AddTransient<InputOperandProvider>();
+            services.AddTransient<CalculatorProvider>();
+            services.AddTransient<OutputSelectionFactory>();
 
-            IOutputService outputService;
+            // Creating ServiceProvider
+            var serviceProvider = services.BuildServiceProvider();
 
-            var values = args[0].Split('=');
-            if (values[1] == "console")
-            {
-                outputService = new ConsoleOutputService();
-            }
-            else
-            {
-                outputService = new MessageBoxOutputService();
-            }
+            // Resolving objects
+            var outputServices = serviceProvider.GetServices<IOutputService>();
+            var inputFloatProvider = serviceProvider.GetRequiredService<InputFloatProvider>();
+            var inputOperandProvider = serviceProvider.GetRequiredService<InputOperandProvider>();
+            var calculatorProvider = serviceProvider.GetRequiredService<CalculatorProvider>();
 
-            // Creating instances
-            var inputStringService = new InputStringService();
-            var inputService = new InputFloatProvider(outputService, inputStringService);
-            var parseOperandService = new InputOperandProvider(outputService, inputStringService);
-            var calculateService = new CalculatorProvider(outputService);
+            var outputService = ProcessArguments(args, outputServices);
 
             // Welcome
-            outputService.Print("Calculator v3.0.0");
+            outputService.Print("Calculator v4.0.0");
 
             // Getting first number
             outputService.Print("Enter first number (float)");
-            var number1 = inputService.GetNumber();
+            var number1 = inputFloatProvider.GetNumber();
 
             // Getting second number
             outputService.Print("Enter second number (float)");
-            var number2 = inputService.GetNumber();
+            var number2 = inputFloatProvider.GetNumber();
 
             // Getting Operand
-            var operand = parseOperandService.GetOperand();
+            var operand = inputOperandProvider.GetOperand();
             if (operand == OperandType.None)
             {
                 outputService.Print("Wrong operand. Good bye!");
@@ -53,12 +54,27 @@ namespace Calabonga.Calculator
             }
 
             // Calculation 
-            var result = calculateService.Compute(number1, number2, operand);
+            var result = calculatorProvider.Compute(number1, number2, operand);
             if (result is not null)
             {
                 outputService.Print(result.Value.ToString("F"));
             }
         }
 
+        private static IOutputService ProcessArguments(string[] args, IEnumerable<IOutputService> outputServices)
+        {
+            if (!args.Any())
+            {
+                throw new ArgumentNullException();
+            }
+
+            var values = args[0].Split('=');
+            if (values[1] == "console")
+            {
+                return outputServices.First(x => x.GetType() == typeof(ConsoleOutputService));
+            }
+
+            return outputServices.First(x => x.GetType() == typeof(MessageBoxOutputService));
+        }
     }
 }
