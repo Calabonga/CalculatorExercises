@@ -45,7 +45,7 @@ namespace Calabonga.Calculator
             var outputService = outputSelectionFactory.GetOutputService();
 
             // Welcome
-            outputService.Print("Calculator v4.0.0");
+            outputService.Print("Calculator v5.0.0");
 
             // Getting first number
             outputService.Print("Enter first number (float)");
