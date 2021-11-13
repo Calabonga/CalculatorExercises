@@ -5,7 +5,9 @@ using Calabonga.Calculator.Factories;
 using Calabonga.Calculator.Providers;
 using Calabonga.Calculator.Services;
 using Calabonga.Calculator.Services.Base;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Calabonga.Calculator
 {
@@ -13,16 +15,23 @@ namespace Calabonga.Calculator
     {
         static void Main(string[] args)
         {
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
             // Registering objects
             var services = new ServiceCollection();
             services.AddTransient<IOutputService, ConsoleOutputService>();
-            services.AddTransient<IOutputService, MessageBoxOutputService>();
+            services.AddTransient<IOutputService, FileOutputService>();
             services.AddTransient<InputStringService>();
             services.AddTransient<InputFloatProvider>();
             services.AddTransient<InputOperandProvider>();
             services.AddTransient<CalculatorProvider>();
+            services.AddTransient<OutputProvider>();
             services.AddTransient<OutputSelectionFactory>();
-
+            services.AddOptions<ApplicationSettings>();
+            services.Configure<ApplicationSettings>(configuration.GetSection(nameof(ApplicationSettings)));
+            
             // Creating ServiceProvider
             var serviceProvider = services.BuildServiceProvider();
 
@@ -31,8 +40,9 @@ namespace Calabonga.Calculator
             var inputFloatProvider = serviceProvider.GetRequiredService<InputFloatProvider>();
             var inputOperandProvider = serviceProvider.GetRequiredService<InputOperandProvider>();
             var calculatorProvider = serviceProvider.GetRequiredService<CalculatorProvider>();
+            var outputSelectionFactory = serviceProvider.GetRequiredService<OutputSelectionFactory>();
 
-            var outputService = ProcessArguments(args, outputServices);
+            var outputService = outputSelectionFactory.GetOutputService();
 
             // Welcome
             outputService.Print("Calculator v4.0.0");
@@ -57,24 +67,9 @@ namespace Calabonga.Calculator
             var result = calculatorProvider.Compute(number1, number2, operand);
             if (result is not null)
             {
-                outputService.Print(result.Value.ToString("F"));
+                var provider = serviceProvider.GetRequiredService<OutputProvider>();
+                provider.Print(result.Value.ToString("F"));
             }
-        }
-
-        private static IOutputService ProcessArguments(string[] args, IEnumerable<IOutputService> outputServices)
-        {
-            if (!args.Any())
-            {
-                throw new ArgumentNullException();
-            }
-
-            var values = args[0].Split('=');
-            if (values[1] == "console")
-            {
-                return outputServices.First(x => x.GetType() == typeof(ConsoleOutputService));
-            }
-
-            return outputServices.First(x => x.GetType() == typeof(MessageBoxOutputService));
         }
     }
 }

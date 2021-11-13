@@ -7,9 +7,9 @@ namespace Calabonga.Calculator.Providers
     {
         private readonly IOutputService _outputService;
 
-        public CalculatorProvider(OutputSelectionFactory outputSelectionFactory)
+        public CalculatorProvider(OutputSelectionFactory outputServiceFactory)
         {
-            _outputService = outputSelectionFactory.GetOutputService();
+            _outputService = outputServiceFactory.GetOutputService();
         }
 
         /// <summary>

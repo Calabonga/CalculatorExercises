@@ -9,9 +9,9 @@ namespace Calabonga.Calculator.Providers
         private readonly IOutputService _outputService;
         private readonly InputStringService _inputStringService;
 
-        public InputOperandProvider(OutputSelectionFactory outputSelectionFactory, InputStringService inputStringService)
+        public InputOperandProvider(OutputSelectionFactory outputServiceFactory, InputStringService inputStringService)
         {
-            _outputService = outputSelectionFactory.GetOutputService();
+            _outputService = outputServiceFactory.GetOutputService();
             _inputStringService = inputStringService;
         }
 
