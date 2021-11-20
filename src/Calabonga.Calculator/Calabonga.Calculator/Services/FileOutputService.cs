@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using Calabonga.Calculator.Services.Base;
+using Calabonga.Calculator.Shell.Services.Base;
 
-namespace Calabonga.Calculator.Services
+namespace Calabonga.Calculator.Shell.Services
 {
     public class FileOutputService : OutputServiceBase
     {

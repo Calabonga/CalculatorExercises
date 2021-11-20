@@ -1,51 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Calabonga.Calculator.Factories;
-using Calabonga.Calculator.Providers;
-using Calabonga.Calculator.Services;
-using Calabonga.Calculator.Services.Base;
-using Microsoft.Extensions.Configuration;
+﻿using Calabonga.Calculator.Shell.Factories;
+using Calabonga.Calculator.Shell.Providers;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
-namespace Calabonga.Calculator
+namespace Calabonga.Calculator.Shell
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            // Registering objects
-            var services = new ServiceCollection();
-            services.AddTransient<IOutputService, ConsoleOutputService>();
-            services.AddTransient<IOutputService, FileOutputService>();
-            services.AddTransient<InputStringService>();
-            services.AddTransient<InputFloatProvider>();
-            services.AddTransient<InputOperandProvider>();
-            services.AddTransient<CalculatorProvider>();
-            services.AddTransient<OutputProvider>();
-            services.AddTransient<OutputSelectionFactory>();
-            services.AddOptions<ApplicationSettings>();
-            services.Configure<ApplicationSettings>(configuration.GetSection(nameof(ApplicationSettings)));
-            
             // Creating ServiceProvider
-            var serviceProvider = services.BuildServiceProvider();
+            var serviceProvider = DependencyContainer.GetContainer();
 
             // Resolving objects
-            var outputServices = serviceProvider.GetServices<IOutputService>();
             var inputFloatProvider = serviceProvider.GetRequiredService<InputFloatProvider>();
             var inputOperandProvider = serviceProvider.GetRequiredService<InputOperandProvider>();
-            var calculatorProvider = serviceProvider.GetRequiredService<CalculatorProvider>();
             var outputSelectionFactory = serviceProvider.GetRequiredService<OutputSelectionFactory>();
-
             var outputService = outputSelectionFactory.GetOutputService();
 
             // Welcome
-            outputService.Print("Calculator v5.0.0");
+            outputService.Print("Calculator v6.0.0");
 
             // Getting first number
             outputService.Print("Enter first number (float)");
@@ -56,20 +29,16 @@ namespace Calabonga.Calculator
             var number2 = inputFloatProvider.GetNumber();
 
             // Getting Operand
-            var operand = inputOperandProvider.GetOperand();
-            if (operand == OperandType.None)
+            var operation = inputOperandProvider.GetOperand();
+            if (operation is null)
             {
                 outputService.Print("Wrong operand. Good bye!");
                 return;
             }
 
             // Calculation 
-            var result = calculatorProvider.Compute(number1, number2, operand);
-            if (result is not null)
-            {
-                var provider = serviceProvider.GetRequiredService<OutputProvider>();
-                provider.Print(result.Value.ToString("F"));
-            }
+            var result = operation.Execute(number1, number2);
+            outputService.Print(result.ToString("F"));
         }
     }
 }

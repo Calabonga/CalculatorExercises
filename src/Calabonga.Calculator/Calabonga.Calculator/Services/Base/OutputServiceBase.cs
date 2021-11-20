@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Calabonga.Calculator.Services.Base
+namespace Calabonga.Calculator.Shell.Services.Base
 {
     public abstract class OutputServiceBase: IOutputService
     {

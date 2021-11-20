@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Calabonga.Calculator.Services.Base;
+using Calabonga.Calculator.Shell.Services.Base;
 
-namespace Calabonga.Calculator.Providers
+namespace Calabonga.Calculator.Shell.Providers
 {
     public class OutputProvider
     {

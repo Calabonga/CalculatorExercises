@@ -1,4 +1,4 @@
-﻿namespace Calabonga.Calculator
+﻿namespace Calabonga.Calculator.Shell
 {
     public class ApplicationSettings
     {

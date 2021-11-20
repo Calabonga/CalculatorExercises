@@ -1,8 +1,8 @@
-﻿using Calabonga.Calculator.Factories;
-using Calabonga.Calculator.Services;
-using Calabonga.Calculator.Services.Base;
+﻿using Calabonga.Calculator.Shell.Factories;
+using Calabonga.Calculator.Shell.Services;
+using Calabonga.Calculator.Shell.Services.Base;
 
-namespace Calabonga.Calculator.Providers
+namespace Calabonga.Calculator.Shell.Providers
 {
     public class InputFloatProvider
     {

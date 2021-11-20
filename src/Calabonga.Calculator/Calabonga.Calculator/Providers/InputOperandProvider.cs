@@ -1,17 +1,25 @@
-﻿using Calabonga.Calculator.Factories;
-using Calabonga.Calculator.Services;
-using Calabonga.Calculator.Services.Base;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Calabonga.Calculator.Contracts;
+using Calabonga.Calculator.Shell.Factories;
+using Calabonga.Calculator.Shell.Services;
+using Calabonga.Calculator.Shell.Services.Base;
 
-namespace Calabonga.Calculator.Providers
+namespace Calabonga.Calculator.Shell.Providers
 {
     public class InputOperandProvider
     {
         private readonly IOutputService _outputService;
+        private readonly IEnumerable<IOperation> _operations;
         private readonly InputStringService _inputStringService;
 
-        public InputOperandProvider(OutputSelectionFactory outputServiceFactory, InputStringService inputStringService)
+        public InputOperandProvider(
+            IEnumerable<IOperation> operations,
+            OutputSelectionFactory outputServiceFactory, 
+            InputStringService inputStringService)
         {
             _outputService = outputServiceFactory.GetOutputService();
+            _operations = operations;
             _inputStringService = inputStringService;
         }
 
@@ -19,19 +27,20 @@ namespace Calabonga.Calculator.Providers
         /// Returns OperandType
         /// </summary>
         /// <returns></returns>
-        public OperandType GetOperand()
+        public IOperation? GetOperand()
         {
-            _outputService.Print("Enter operand + - * /");
-            var operandString = _inputStringService.GetStringFromUser();
-
-            return operandString switch
+            if (!_operations.Any())
             {
-                "+" => OperandType.Addition,
-                "-" => OperandType.Subtraction,
-                "*" => OperandType.Multiplication,
-                "/" => OperandType.Division,
-                _ => OperandType.None,
-            };
+                return null;
+            }
+
+            var messages = _operations.Select(x => $"[{x.ShortName}] {x.Name}. {x.Description}");
+
+            _outputService.Print("Select operation:");
+            _outputService.Print(string.Join("\n", messages));
+
+            var operandString = _inputStringService.GetStringFromUser();
+            return _operations.FirstOrDefault(x => x.ShortName.Equals(operandString));
         }
     }
 }

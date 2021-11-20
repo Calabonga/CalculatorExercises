@@ -1,7 +1,7 @@
 ﻿using System;
-using Calabonga.Calculator.Services.Base;
+using Calabonga.Calculator.Shell.Services.Base;
 
-namespace Calabonga.Calculator.Services
+namespace Calabonga.Calculator.Shell.Services
 {
     /// <summary>
     /// Простой сервис печати

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Calabonga.Calculator.Services;
-using Calabonga.Calculator.Services.Base;
+using Calabonga.Calculator.Shell.Services;
+using Calabonga.Calculator.Shell.Services.Base;
 using Microsoft.Extensions.Options;
 
-namespace Calabonga.Calculator.Factories
+namespace Calabonga.Calculator.Shell.Factories
 {
     public class OutputSelectionFactory
     {

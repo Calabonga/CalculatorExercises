@@ -1,9 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calabonga.Calculator", "Calabonga.Calculator\Calabonga.Calculator.csproj", "{D257E35A-BF47-45C1-B7FF-45B6D80E0EE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calabonga.Calculator.Shell", "Calabonga.Calculator\Calabonga.Calculator.Shell.csproj", "{D257E35A-BF47-45C1-B7FF-45B6D80E0EE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Operations", "Operations", "{D816B0CC-621F-4EDF-BEC6-6AEE40E0E357}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calabonga.Calculator.Contracts", "Calabonga.Calculator.Contracts\Calabonga.Calculator.Contracts.csproj", "{24438618-A0BA-4975-905D-AF74439B17C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calabonga.Calculator.AdditionOperations", "Calabonga.Calculator.AdditionOperation\Calabonga.Calculator.AdditionOperations.csproj", "{9982F38E-B8D9-4358-96D5-A39498222F9E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calabonga.Calculator.DivisionOperations", "Calabonga.Calculator.DivisionOperation\Calabonga.Calculator.DivisionOperations.csproj", "{0403BB99-91F9-49DF-A752-57E23BE07A6F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calabonga.Calculator.MultiplicationOperations", "Calabonga.Calculator.MultiplicationOperation\Calabonga.Calculator.MultiplicationOperations.csproj", "{B8F85C70-6DBA-4108-AF46-ADF2746C3C2D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calabonga.Calculator.SubtractOperations", "Calabonga.Calculator.SubtractOperation\Calabonga.Calculator.SubtractOperations.csproj", "{DE843DC8-FDEB-465A-8373-05000E6B6331}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +27,35 @@ Global
 		{D257E35A-BF47-45C1-B7FF-45B6D80E0EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D257E35A-BF47-45C1-B7FF-45B6D80E0EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D257E35A-BF47-45C1-B7FF-45B6D80E0EE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24438618-A0BA-4975-905D-AF74439B17C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24438618-A0BA-4975-905D-AF74439B17C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24438618-A0BA-4975-905D-AF74439B17C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24438618-A0BA-4975-905D-AF74439B17C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9982F38E-B8D9-4358-96D5-A39498222F9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9982F38E-B8D9-4358-96D5-A39498222F9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9982F38E-B8D9-4358-96D5-A39498222F9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9982F38E-B8D9-4358-96D5-A39498222F9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0403BB99-91F9-49DF-A752-57E23BE07A6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0403BB99-91F9-49DF-A752-57E23BE07A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0403BB99-91F9-49DF-A752-57E23BE07A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0403BB99-91F9-49DF-A752-57E23BE07A6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8F85C70-6DBA-4108-AF46-ADF2746C3C2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8F85C70-6DBA-4108-AF46-ADF2746C3C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8F85C70-6DBA-4108-AF46-ADF2746C3C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8F85C70-6DBA-4108-AF46-ADF2746C3C2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE843DC8-FDEB-465A-8373-05000E6B6331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE843DC8-FDEB-465A-8373-05000E6B6331}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE843DC8-FDEB-465A-8373-05000E6B6331}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE843DC8-FDEB-465A-8373-05000E6B6331}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9982F38E-B8D9-4358-96D5-A39498222F9E} = {D816B0CC-621F-4EDF-BEC6-6AEE40E0E357}
+		{0403BB99-91F9-49DF-A752-57E23BE07A6F} = {D816B0CC-621F-4EDF-BEC6-6AEE40E0E357}
+		{B8F85C70-6DBA-4108-AF46-ADF2746C3C2D} = {D816B0CC-621F-4EDF-BEC6-6AEE40E0E357}
+		{DE843DC8-FDEB-465A-8373-05000E6B6331} = {D816B0CC-621F-4EDF-BEC6-6AEE40E0E357}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7AB6E34D-249E-4CB8-ACDE-F284A5B9C8A3}

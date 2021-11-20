@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Calabonga.Calculator.Services
+namespace Calabonga.Calculator.Shell.Services
 {
     public class InputStringService
     {

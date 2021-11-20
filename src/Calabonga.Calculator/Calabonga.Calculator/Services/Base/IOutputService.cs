@@ -1,4 +1,4 @@
-﻿namespace Calabonga.Calculator.Services.Base
+﻿namespace Calabonga.Calculator.Shell.Services.Base
 {
     /// <summary>
     /// Сервис вывода информации пользователю
