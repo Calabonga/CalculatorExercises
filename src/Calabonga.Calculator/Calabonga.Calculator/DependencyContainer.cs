@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using Calabonga.Calculator.Contracts;
 using Calabonga.Calculator.Shell.Factories;
 using Calabonga.Calculator.Shell.Providers;
@@ -30,10 +33,27 @@ namespace Calabonga.Calculator.Shell
             services.Configure<ApplicationSettings>(configuration.GetSection(nameof(ApplicationSettings)));
 
             // Registration operations
-            services.AddTransient<IOperation, AdditionOperation>();
-            services.AddTransient<IOperation, DivisionOperation>();
-            services.AddTransient<IOperation, SubtractOperation>();
-            services.AddTransient<IOperation, MultiplicationOperation>();
+            var pluginsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins");
+            if (!Directory.Exists(pluginsFolder))
+            {
+                return services.BuildServiceProvider();
+            }
+
+            var files = Directory.GetFiles(pluginsFolder, "*.dll");
+            if (!files.Any())
+            {
+                return services.BuildServiceProvider();
+            }
+
+            foreach (var file in files)
+            {
+                var assembly = Assembly.LoadFile(file);
+                var types = assembly.GetExportedTypes().Where(x => x.IsAssignableTo(typeof(IOperation))).ToList();
+                foreach (var type in types)
+                {
+                    services.AddTransient(typeof(IOperation), type);
+                }
+            }
 
             // Creating ServiceProvider
             return services.BuildServiceProvider();

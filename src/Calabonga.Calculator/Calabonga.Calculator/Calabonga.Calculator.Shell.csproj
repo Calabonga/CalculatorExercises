@@ -13,18 +13,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Calabonga.Calculator.AdditionOperation\Calabonga.Calculator.AdditionOperations.csproj" />
     <ProjectReference Include="..\Calabonga.Calculator.Contracts\Calabonga.Calculator.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Windows.Forms">
-      <HintPath>C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\5.0.12\System.Windows.Forms.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Plugins\Calabonga.Calculator.AdditionOperation.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Plugins\Calabonga.Calculator.DivisionOperation.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Plugins\Calabonga.Calculator.ExponentialOperations.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Plugins\Calabonga.Calculator.MultiplicationOperation.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Plugins\Calabonga.Calculator.SubtractOperation.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

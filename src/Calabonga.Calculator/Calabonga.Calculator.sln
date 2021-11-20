@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calabonga.Calculator.Multip
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calabonga.Calculator.SubtractOperations", "Calabonga.Calculator.SubtractOperation\Calabonga.Calculator.SubtractOperations.csproj", "{DE843DC8-FDEB-465A-8373-05000E6B6331}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calabonga.Calculator.ExponentialOperations", "Calabonga.Calculator.ExponentialOperations\Calabonga.Calculator.ExponentialOperations.csproj", "{856CA9FE-9F75-4412-A126-B4CD0A6DDD8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{DE843DC8-FDEB-465A-8373-05000E6B6331}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE843DC8-FDEB-465A-8373-05000E6B6331}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE843DC8-FDEB-465A-8373-05000E6B6331}.Release|Any CPU.Build.0 = Release|Any CPU
+		{856CA9FE-9F75-4412-A126-B4CD0A6DDD8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{856CA9FE-9F75-4412-A126-B4CD0A6DDD8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{856CA9FE-9F75-4412-A126-B4CD0A6DDD8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{856CA9FE-9F75-4412-A126-B4CD0A6DDD8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{0403BB99-91F9-49DF-A752-57E23BE07A6F} = {D816B0CC-621F-4EDF-BEC6-6AEE40E0E357}
 		{B8F85C70-6DBA-4108-AF46-ADF2746C3C2D} = {D816B0CC-621F-4EDF-BEC6-6AEE40E0E357}
 		{DE843DC8-FDEB-465A-8373-05000E6B6331} = {D816B0CC-621F-4EDF-BEC6-6AEE40E0E357}
+		{856CA9FE-9F75-4412-A126-B4CD0A6DDD8A} = {D816B0CC-621F-4EDF-BEC6-6AEE40E0E357}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7AB6E34D-249E-4CB8-ACDE-F284A5B9C8A3}
